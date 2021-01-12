@@ -1,0 +1,177 @@
+Setup
+
+Bounded context: Order-Taking
+ Workflow: "Place order"
+   triggered by:
+     "Order form received" event (when Quote is not checked)
+  primary input:
+    An order form
+  other input:
+    Product catalog
+  output events:
+    "Order Placed" event
+  side-effects:
+    An acknowledgment is sent to the customer,
+    along with the placed order
+
+Bounded context: Order-Taking
+data OrderLine = Product AND Quantity AND Price
+data CustomerInfo = ??? // don't know yet
+data BillingAddress = ??? // don't know yet
+
+data WidgetCode = string starting with "W" then 4 digits
+data GizmoCode = string starting with "G" then 3 digits
+data ProductCode = WidgetCode OR GizmoCode
+
+data OrderQuantity = UnitQuantity OR KilogramQuantity
+data UnitQuantity = integer between 1 and 1000
+data KilogramQuantity = decimal between 0.05 and 100.00
+
+data Order =
+  CustomerInfo
+  AND ShippingAddress
+  AND BillingAddress
+  AND list of OrderLines
+  AND AmountToBill
+
+!-Unvalidated order state-!
+
+data UnvalidatedOrder =
+  UnvalidatedCustomerInfo
+  AND UnvalidatedShippingAddress
+  AND UnvalidatedBillingAddress
+  AND list of UnvalidatedOrderLine
+data UnvalidatedOrderLine =
+  UnvalidatedProductCode
+  AND UnvalidatedOrderQuantity
+
+!-Validated order state-!
+
+data ValidatedOrder =
+  ValidatedCustomerInfo
+  AND ValidatedShippingAddress
+  AND ValidatedBillingAddress
+  AND list of ValidatedOrderLine
+data ValidatedOrderLine =
+  ValidatedProductCode
+  AND ValidatedOrderQuantity
+
+!-Priced order state-!
+
+data PricedOrder =
+  ValidatedCustomerInfo
+  AND ValidatedShippingAddress
+  AND ValidatedBillingAddress
+  AND list of PricedOrderLine
+  AND AmountToBill
+
+data PricedOrderLine =
+  ValidatedOrderLine
+  AND LinePrice
+
+data PlacedOrderAcknowledgment =
+  PricedOrder
+  AND AcknowledgmentLetter
+
+--------------------------------------
+Refinment
+
+workflow "Place Order" =
+  input: OrderForm
+  output:
+    OrderPlaced event (put on a pile to send to other teams)
+    OR InvalidOrder (put on appropriate pile)
+  // step 1
+  do ValidateOrder
+    If order is invalid then:
+    add InvalidOrder to pile. Stop processing
+  // step 2
+  do PriceOrder
+  // step 3
+  do SendAcknowledgementToCustomer
+  // step 4
+  return OrderPlaced event (if no errors)
+
+
+substep "ValidateOrder" =
+  input: UnvalidatedOrder
+  output: ValidatedOrder OR ValidationError
+  dependencies: CheckProductCodeExists, CheckAddressExists
+  - validate the customer name
+  - check that the shipping and billing address exist
+  - for each line:
+    - check product code syntax
+    - check that product code exists in ProductCatalog
+  - if everything is OK, then:
+    return ValidatedOrder
+  else:
+    return ValidationError
+
+substep "PriceOrder" =
+  input: ValidatedOrder
+  output: PricedOrder
+  dependencies: GetProductPrice
+  - for each line:
+    - get the price for the product
+    - set the price for the line
+  - set the amount to bill ( = sum of the line prices)
+
+substep "SendAcknowledgementToCustomer" =
+  input: PricedOrder
+  output: None
+  - create acknowledgment letter and send it 
+  - Send priced order to the customer
+
+
+data BillableOrderPlaced =
+  OrderId
+  AND BillingAddress
+  AND AmountToBill
+
+type OrderQuantity =
+  | UnitQuantity of int
+  | KilogramQuantity of decimal
+
+// Match syntax
+let printQuantity aOrderQty =
+  match aOrderQty with
+  | UnitQuantity uQty ->
+    printfn "%i units" uQty
+  | KilogramQuantity kgQty ->
+    printfn "%g kg" kgQty
+
+type CheckNumber = CheckNumber of int
+type CardNumber = CardNumber of string
+
+type CardType =
+  Visa | Mastercard
+type CreditCardInfo = {
+  CardType : CardType
+  CardNumber : CardNumber
+}
+type PaymentMethod =
+  | Cash
+  | Check of CheckNumber
+  | Card of CreditCardInfo
+type PaymentAmount = PaymentAmount of decimal
+type Currency = EUR | USD
+
+type Payment = {
+  Amount : PaymentAmount
+  Currency: Currency
+  Method: PaymentMethod
+}
+
+type PayInvoice = UnpaidInvoice -> Payment -> Result<PaidInvoice,PaymentError>
+type ConvertPaymentCurrency = Payment -> Currency -> Payment
+type PaymentError =
+  | CardTypeNotRecognized
+  | PaymentRejected
+  | PaymentProviderOffline
+
+type PersonalName = {
+  FirstName : string
+  MiddleInitial: string option
+  LastName : string
+}
+

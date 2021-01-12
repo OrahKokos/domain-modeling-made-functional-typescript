@@ -14,7 +14,10 @@
 		"editor.autoFixOnSave": true,
 		"editor.codeActionsOnSave": {
 		  "source.fixAll.eslint": true
-		}
+		},
+		"editor.tabSize": 2,
+		"editor.insertSpaces": true,
+		"editor.detectIndentation": false
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
