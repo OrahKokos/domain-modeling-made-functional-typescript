@@ -1635,6 +1635,16 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
+io-ts-reporters@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/io-ts-reporters/-/io-ts-reporters-1.2.2.tgz#4d3219777ea5219c7d8f6ffac01fd68e72426dd1"
+  integrity sha512-igASwWWkDY757OutNcM6zTtdJf/eTZYkoe2ymsX2qpm5bKZLo74FJYjsCtMQOEdY7dRHLLEulCyFQwdN69GBCg==
+
+io-ts-types@^0.5.12:
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/io-ts-types/-/io-ts-types-0.5.12.tgz#270487f6e0adfe0a597ca14e50fbab287e4bb266"
+  integrity sha512-8IC96BJBTMeHFIikM3Mh5poyl2NA6pgF1ncWBktrpS1xfCdoRZQeSWPDcUaiR8T8jYWfAYOt/KEcIsw2e1fufw==
+
 io-ts@^2.2.13:
   version "2.2.13"
   resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.13.tgz#e04016685e863dd5cffb2b5262c5c9c74432dfda"
@@ -2090,6 +2100,11 @@ mississippi@^2.0.0:
   dependencies:
     minimist "^1.2.5"
 
+monocle-ts@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/monocle-ts/-/monocle-ts-2.3.4.tgz#19136b1c9ed6d01b7f0f4cbdc5e06e24658bff0a"
+  integrity sha512-94QvNtNRyh5CwLzZpJADCsSuv9mfuXucjz2Xs7nB3Jhij/rYKNMW2ugKvg7OxWIdnPQTYApEivdoR0rGhMCirA==
+
 move-concurrently@^1.0.1, move-concurrently@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -2126,6 +2141,11 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+newtype-ts@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/newtype-ts/-/newtype-ts-0.3.4.tgz#65c74b7d5195edaa9abfcdba6549a33a5c0e298d"
+  integrity sha512-lFJnWAt0oXX1j1ErNy9RU5+FPNtVyzugHW2MchaaMiOeeS9LEmqAAOqyHPFQ0Uw895jStSYGSCslrByzYxFJYQ==
 
 nice-try@^1.0.4:
   version "1.0.5"

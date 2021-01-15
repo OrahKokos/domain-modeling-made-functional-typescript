@@ -1,8 +1,9 @@
-import * as D from 'io-ts/Decoder'
-import { pipe } from 'fp-ts/function'
-import { Int } from 'io-ts'
+import { prism } from 'newtype-ts'
+import { PositiveInteger } from 'newtype-ts/lib/PositiveInteger'
 
-export const intDecoder = pipe(
-  D.number,
-  D.refine((n): n is Int => Number.isInteger(n), 'Int')
-)
+const isPositiveInteger = (n: number) =>
+  Number.isInteger(n) && Math.sign(n) === 1
+
+const prismPositiveInteger = prism<PositiveInteger>(isPositiveInteger)
+
+export const PositiveIntOption = prismPositiveInteger.getOption
