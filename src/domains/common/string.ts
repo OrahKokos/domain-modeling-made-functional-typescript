@@ -1,21 +1,21 @@
-import { NonEmptyString, RegExpC } from 'io-ts-types'
-import { Char } from 'newtype-ts/lib/Char'
-import * as CharT from './char'
-import * as O from 'fp-ts/lib/Option'
-import * as E from 'fp-ts/lib/Either'
-import { regexp } from 'io-ts-types/lib/regexp'
-import { identity, pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/lib/pipeable'
+import { NonEmptyString, withMessage } from 'io-ts-types'
+import { Char } from './char'
+import * as O from 'fp-ts/Option'
 
-export const startsWith = (c: Char) => (s: NonEmptyString) =>
-  pipe(
-    CharT.of(s[0]),
-    O.map(sc => sc === c),
-    O.getOrElse(() => false)
-  )
+export const NonEmptyStringWithMessage = withMessage(
+  NonEmptyString,
+  i => `Value ${i} is an empty string`
+)
 
-export const matchRegexp = (r: RegExpC) => (s: NonEmptyString) =>
-  pipe(
-    regexp.decode(r),
-    E.map(regx => regx.test(s)),
-    E.fold(() => false, identity)
-  )
+// How to operate safe strings D: ?
+// Substitute s[0] with something else...
+// Array of Char = String??
+export const head = (s: NonEmptyString): Char => s[0] as Char
+
+// ZeroPositiveNumber instead of number...
+export const length = (s: string): number => s.length
+
+// unsafe...
+export const substring = (start: number, end: number) => (s: NonEmptyString) =>
+  s.substring(start, end) as NonEmptyString

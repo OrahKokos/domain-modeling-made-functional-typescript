@@ -1,11 +1,15 @@
-import { regexp } from 'io-ts-types/lib/regexp'
-import { right } from 'fp-ts/lib/Either'
-import assert from 'assert'
+import { WidgetCode } from './domains/product/types/WidgetCode'
 
-const input1 = /\w+/
-const input2 = new RegExp('\\w+')
-assert.deepStrictEqual(regexp.decode(input1), right(input1))
-assert.deepStrictEqual(regexp.decode(input2), right(input2))
+const setOfInputStrings = Object.freeze({
+  EMPTY: '',
+  INVALID: ['xxxxx'],
+  VALID: 'W1234',
+})
 
-const res = input1.test('asdasd');
-console.log(res);
+const emptyResult = WidgetCode.decode(setOfInputStrings.EMPTY)
+const invaldResult = WidgetCode.decode(setOfInputStrings.INVALID[0])
+const validResult = WidgetCode.decode(setOfInputStrings.VALID)
+
+console.log('Empty', emptyResult)
+console.log('Empty', invaldResult)
+console.log('Empty', validResult)

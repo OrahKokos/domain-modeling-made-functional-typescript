@@ -39,14 +39,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@morphic-ts/adt@^3.0.0-alpha.3":
-  version "3.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@morphic-ts/adt/-/adt-3.0.0-alpha.3.tgz#5d3e64b1346acf74cfc4df869ad045df09cd507e"
-  integrity sha512-6e77LEll/UrfTbMimal2mhobY3p8Ar230B1WM1Jf6DnAQAmWGv/i1q1F6EpKu3A4+MsO7GtSa/pIBPCC9NpPRw==
-  dependencies:
-    fp-ts "^2.5.3"
-    monocle-ts "^2.0.1"
-
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.4.tgz#d4b3549a5db5de2683e0c1071ab4f140904bbf69"
@@ -1238,7 +1230,7 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-fp-ts@^2.5.3, fp-ts@^2.9.3:
+fp-ts@^2.9.3:
   version "2.9.3"
   resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.9.3.tgz#419b9103018ddf7c785acf2b3fecb2662afab5af"
   integrity sha512-NjzcHYgigcbPQ6yJ52zwgsVDwKz3vwy9sjbxyzcvfXQm+j1BGeOPRuzLKEwsLyE4Xut6gG1FXJtsU9/gUB7tXg==
@@ -2108,7 +2100,7 @@ mississippi@^2.0.0:
   dependencies:
     minimist "^1.2.5"
 
-monocle-ts@^2.0.1, monocle-ts@^2.3.4:
+monocle-ts@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/monocle-ts/-/monocle-ts-2.3.4.tgz#19136b1c9ed6d01b7f0f4cbdc5e06e24658bff0a"
   integrity sha512-94QvNtNRyh5CwLzZpJADCsSuv9mfuXucjz2Xs7nB3Jhij/rYKNMW2ugKvg7OxWIdnPQTYApEivdoR0rGhMCirA==
